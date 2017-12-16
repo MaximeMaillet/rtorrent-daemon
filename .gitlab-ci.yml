@@ -4,9 +4,9 @@ services:
   - docker:dind
 
 variables:
-  UUID=1000
-  GGID=1000
-  USER=torrent
+  UUID: 1000
+  GGID: 1000
+  USER: torrent
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
