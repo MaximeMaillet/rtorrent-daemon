@@ -12,7 +12,7 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   - export IMAGE_TAG=$CI_REGISTRY_IMAGE:release-$CI_COMMIT_REF_NAME
   - export LATEST_IMAGE_TAG=$CI_REGISTRY_IMAGE:release-latest
-  - git clone git@git@gitlab.deuxmax.fr:torrent/rtorrent-deamon.git ./project
+  - git clone git@gitlab.deuxmax.fr:torrent/rtorrent-deamon.git ./project
   - cd ./project && git checkout $CI_COMMIT_REF_NAME
 
 stages:
