@@ -25,4 +25,6 @@ VOLUME /var/rtorrent/downloaded
 VOLUME /var/rtorrent/torrents
 VOLUME /var/rtorrent/logs
 
+EXPOSE 80
+
 CMD ["/usr/bin/supervisord"]
