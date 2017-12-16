@@ -9,6 +9,10 @@ variables:
   USER: torrent
 
 before_script:
+  - 'which ssh-agent || ( apk update && apk add openssh-client )'
+  - 'which git || ( apk update && apk add git )'
+  - 'which rsync || ( apk update && apk add rsync )'
+  - eval $(ssh-agent -s)
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   - export IMAGE_TAG=$CI_REGISTRY_IMAGE:release-$CI_COMMIT_REF_NAME
   - export LATEST_IMAGE_TAG=$CI_REGISTRY_IMAGE:release-latest
