@@ -2,15 +2,17 @@
 
 Rtorrent in docker with nginx.
 
-Supervisord launch Rtorrent + nginx with RPC2 and communicate with XML RPC protocol.
+rTorrent can download torrent and nginx is an interface for get state aboute torrents.
 
-Rtorrent launch events with bash files :
-* When torrent is erased : Docker/rtorrent/event_erased.sh
-* When torrent is added : Docker/rtorrent/event_new.sh
-* When torrent is paused : Docker/rtorrent/event_paused.sh
-* When torrent is resumed : Docker/rtorrent/event_resumed.sh
+rTorrent can give you informations with XMLRPC protocol.
 
-## Run container
+Many librairies implement XMLRPC as client.
+
+You can call `http://host/downloaded/[mydownloadedFile]` for download file downloaded by rTorrent.
+
+## Usage
+
+### Run container
 
 ```bash
 docker run -d
@@ -21,7 +23,10 @@ docker run -d
   torrent/rtorrent-daemon:latest
 ```
 
-## Docker compose
+And put your .torrent file into `/home/my/torrent` and it's done !
+
+
+### Docker compose
 
 ```yaml
 version: '3'
@@ -36,3 +41,22 @@ services:
       - /home/my/torrent:/var/rtorrent/torrents
       - /home/my/logs:/var/rtorrent/logs
 ```
+
+## Seedbox
+
+Because it's more simply to send torrent file via UI or API, this is an API which use rtorrent-deamon for seedbox : [https://github.com/MaximeMaillet/seedbox](https://github.com/MaximeMaillet/seedbox)
+
+And this is graphic interface for previous API : [https://github.com/MaximeMaillet/tor-ui](https://github.com/MaximeMaillet/tor-ui)
+
+Contributing are welcome !
+
+## Roadmap
+
+* [ ] Secure nginx download
+
+* [ ] Configure Rtorrent for launch events with bash files :
+  * When torrent is erased : Docker/rtorrent/event_erased.sh
+  * When torrent is added : Docker/rtorrent/event_new.sh
+  * When torrent is paused : Docker/rtorrent/event_paused.sh
+  * When torrent is resumed : Docker/rtorrent/event_resumed.sh
+
