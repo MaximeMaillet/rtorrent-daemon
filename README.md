@@ -20,7 +20,7 @@ docker run -d
   -v "/home/my/files:/var/rtorrent/downloaded"
   -v "/home/my/torrent:/var/rtorrent/torrents"
   -v "/home/my/logs:/var/rtorrent/logs"
-  torrent/rtorrent-daemon:latest
+  rtorrent/daemon:latest
 ```
 
 And put your .torrent file into `/home/my/torrent` and it's done !
@@ -32,7 +32,7 @@ And put your .torrent file into `/home/my/torrent` and it's done !
 version: '3'
 services:
   rtorrent:
-    image: torrent/rtorrent-daemon:latest
+    image: rtorrent/daemon:latest
     restart: always
     ports:
       - 8080:80
