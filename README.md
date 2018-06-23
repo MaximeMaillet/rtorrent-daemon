@@ -50,13 +50,3 @@ And this is graphic interface for previous API : [https://github.com/MaximeMaill
 
 Contributing are welcome !
 
-## Roadmap
-
-* [ ] Secure nginx download
-
-* [ ] Configure Rtorrent for launch events with bash files :
-  * When torrent is erased : Docker/rtorrent/event_erased.sh
-  * When torrent is added : Docker/rtorrent/event_new.sh
-  * When torrent is paused : Docker/rtorrent/event_paused.sh
-  * When torrent is resumed : Docker/rtorrent/event_resumed.sh
-
