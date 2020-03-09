@@ -22,13 +22,13 @@ check_hash = yes
 schedule = watch_directory,15,15,load_start=/var/rtorrent/torrents/*.torrent
 
 # At end of downloading, file is moving to /var/rtorrent/downloaded
-system.method.set_key = event.download.finished,move_complete,"execute=mv,-u,$d.get_base_path=,/var/rtorrent/downloaded/"
+method.set_key = event.download.finished,move_complete,"execute=mv,-u,$d.base_path=,/var/rtorrent/downloaded/"
 
 # Event firing with hash as parameters
-system.method.set_key = event.download.inserted_new,notify_new,"execute=/home/torrent/events/event_new.sh,$d.get_hash="
-system.method.set_key = event.download.erased,notify_erased,"execute=/home/torrent/events/event_erased.sh,$d.get_hash="
-system.method.set_key = event.download.paused,notify_paused,"execute=/home/torrent/events/event_paused.sh,$d.get_hash="
-system.method.set_key = event.download.resumed,notify_resumed,"execute=/home/torrent/events/event_resumed.sh,$d.get_hash="
+method.set_key = event.download.inserted_new,notify_new,"execute=/home/torrent/events/event_new.sh,$d.hash="
+method.set_key = event.download.erased,notify_erased,"execute=/home/torrent/events/event_erased.sh,$d.hash="
+method.set_key = event.download.paused,notify_paused,"execute=/home/torrent/events/event_paused.sh,$d.hash="
+method.set_key = event.download.resumed,notify_resumed,"execute=/home/torrent/events/event_resumed.sh,$d.hash="
 
 
 # Enable DHT for torrents without trackers

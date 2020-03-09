@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:buster
 
 ARG USER=torrent
 ARG UUID=1000
@@ -12,8 +12,7 @@ RUN apt-get update && \
 RUN mkdir -p /home/$USER && \
     addgroup --system --gid $GGID $USER && \
     useradd -l --system --home-dir /home/$USER --uid $UUID --gid $GGID $USER && \
-    mkdir -p /var/rtorrent/session /var/rtorrent/torrents /var/rtorrent/downloaded /var/rtorrent/logs && \
-    mkdir -p /var/log/supervisor && \
+    mkdir -p /var/rtorrent/session /var/rtorrent/torrents /var/rtorrent/downloaded /var/rtorrent/logs /var/log/supervisor && \
     chown -R $USER. /var/rtorrent && \
     chown -R $USER. /home/$USER
 
