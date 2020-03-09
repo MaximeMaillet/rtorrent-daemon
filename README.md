@@ -1,6 +1,6 @@
 # Rtorrent Daemon
 
-Rtorrent in docker with nginx.
+Rtorrent in docker with nginx for interface.
 
 rTorrent can download torrent and nginx is an interface for get state aboute torrents.
 
@@ -8,9 +8,19 @@ rTorrent can give you informations with XMLRPC protocol.
 
 Many librairies implement XMLRPC as client.
 
-You can call `http://host/downloaded/[mydownloadedFile]` for download file downloaded by rTorrent.
+#### Feature
+
+- Get downloaded file with `http://host/downloaded/[mydownloadedFile]`
+- Get content of torrent file with `http://host/torrents/[torrentName]`
+- Get data with XML RPC `http://host/RPC2`
 
 ## Usage
+
+### Build container
+
+```bash
+docker build -t namespace/container:latest .
+```
 
 ### Run container
 
@@ -20,7 +30,7 @@ docker run -d
   -v "/home/my/files:/var/rtorrent/downloaded"
   -v "/home/my/torrent:/var/rtorrent/torrents"
   -v "/home/my/logs:/var/rtorrent/logs"
-  rtorrent/daemon:latest
+  namespace/container:latest
 ```
 
 And put your .torrent file into `/home/my/torrent` and it's done !
@@ -32,7 +42,7 @@ And put your .torrent file into `/home/my/torrent` and it's done !
 version: '3'
 services:
   rtorrent:
-    image: rtorrent/daemon:latest
+    image: namespace/container:latest
     restart: always
     ports:
       - 8080:80
@@ -41,12 +51,3 @@ services:
       - /home/my/torrent:/var/rtorrent/torrents
       - /home/my/logs:/var/rtorrent/logs
 ```
-
-## Seedbox
-
-Because it's more simply to send torrent file via UI or API, this is an API which use rtorrent-deamon for seedbox : [https://github.com/MaximeMaillet/seedbox](https://github.com/MaximeMaillet/seedbox)
-
-And this is graphic interface for previous API : [https://github.com/MaximeMaillet/tor-ui](https://github.com/MaximeMaillet/tor-ui)
-
-Contributing are welcome !
-
