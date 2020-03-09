@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    ports:
+      - 8099:80
+    volumes:
+      - ./.data/logs:/var/rtorrent/logs
+      - ./webservice:/home/torrent/app
+      - ./Docker/nginx/sites-enabled/default.conf:/etc/nginx/sites-enabled/default
