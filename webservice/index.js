@@ -23,7 +23,7 @@ router.route([
             ])]
           }
         ],
-        get: (req, res, next) => {
+        post: (req, res, next) => {
           const {torrents} = req.files;
           const errors = [];
 

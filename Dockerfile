@@ -26,8 +26,6 @@ ADD Docker/supervisor /etc/supervisor
 ADD Docker/nginx/sites-enabled/default.conf /etc/nginx/sites-enabled/default
 ADD Docker/rtorrent /home/$USER
 
-RUN chown -R $USER:$USER /home/$USER && chmod -R 755 /home/torrent
-
 VOLUME /var/rtorrent/downloaded
 VOLUME /var/rtorrent/torrents
 VOLUME /var/rtorrent/logs
