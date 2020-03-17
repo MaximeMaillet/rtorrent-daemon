@@ -13,6 +13,7 @@ Many librairies implement XMLRPC as client.
 - Get downloaded file with `http://host/downloaded/[mydownloadedFile]`
 - Get content of torrent file with `http://host/torrents/[torrentName]`
 - Get data with XML RPC `http://host/RPC2`
+- Stream file with `http://localhost/ws/stream/:hash?file=:filePath`
 
 ## Usage
 
@@ -50,4 +51,19 @@ services:
       - /home/my/files:/var/rtorrent/downloaded
       - /home/my/torrent:/var/rtorrent/torrents
       - /home/my/logs:/var/rtorrent/logs
+```
+
+
+### Transcoding
+
+Transcode .avi to .mp4 with `libx264`
+
+```bash
+docker run --rm 
+    -u torrent
+    -v /home/my/torrents:/var/rtorrent/torrents 
+    -v /home/my/files:/var/rtorrent/downloaded
+    -v /home/my/stream:/var/rtorrent/stream 
+    rtorrent-daemon_app 
+    transcode-all
 ```
