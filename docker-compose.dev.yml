@@ -1,17 +1,18 @@
 version: '3.1'
 
+networks:
+  seedbox:
+    external:
+      name: seedbox
+
 services:
-  app:
+  rtorrent:
     build: .
     env_file: .env
-    ports:
-      - 8099:80
     volumes:
-      - ${STORAGE}/dtorrent/downloaded:/var/rtorrent/downloaded
-      - ${STORAGE}/dtorrent/torrent:/var/rtorrent/torrents
-      - ${STORAGE}/dtorrent/logs:/var/rtorrent/logs
+      - ${STORAGE_PATH}/dtorrent/downloaded:/var/rtorrent/downloaded
+      - ${STORAGE_PATH}/dtorrent/torrent:/var/rtorrent/torrents
+      - ${STORAGE_PATH}/dtorrent/logs:/var/rtorrent/logs
       - ./webservice:/var/app
-      - ./Docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./Docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./Docker/supervisor/conf.d:/etc/supervisor/conf.d
-      - ./Docker/rtorrent:/home/torrent
+    networks:
+      - seedbox

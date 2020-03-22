@@ -1,41 +1,12 @@
-#version: '3.1'
-#
-#services:
-#  app:
-#    image: ${RTORRENT_DAEMON_IMAGE}
-#    env_file: .env
-#    ports:
-#      - 8099:80
-#    volumes:
-#      - ${STORAGE}/dtorrent/downloaded:/var/rtorrent/downloaded
-#      - ${STORAGE}/dtorrent/torrent:/var/rtorrent/torrents
-#      - ${STORAGE}/dtorrent/logs:/var/rtorrent/logs
-
 version: '3.1'
 
-networks:
-  seedbox:
-    external:
-      name: seedbox
-
 services:
-  rtorrent-daemon:
-    build: .
+  rtorrent:
+    image: ${IMAGE_RTORRENT}
     env_file: .env
-    environment:
-      MEDIA_PATH: /var/rtorrent/downloaded
-      STREAM_PATH: /var/rtorrent/stream
     ports:
       - 8099:80
-    networks:
-      - seedbox
     volumes:
-      - ${STORAGE}/dtorrent/downloaded:/var/rtorrent/downloaded
-      - ${STORAGE}/dtorrent/torrent:/var/rtorrent/torrents
-      - ${STORAGE}/dtorrent/stream:/var/rtorrent/stream
-      - ${STORAGE}/dtorrent/logs:/var/rtorrent/logs
-      - ./webservice:/var/app
-      - ./Docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./Docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./Docker/supervisor/conf.d:/etc/supervisor/conf.d
-      - ./Docker/rtorrent:/home/torrent/rtorrent
+      - ${STORAGE_PATH}/dtorrent/downloaded:/var/rtorrent/downloaded
+      - ${STORAGE_PATH}/dtorrent/torrent:/var/rtorrent/torrents
+      - ${STORAGE_PATH}/dtorrent/logs:/var/rtorrent/logs

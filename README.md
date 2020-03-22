@@ -1,15 +1,16 @@
-# Rtorrent Daemon
+# Docker rTorrent
 
-Rtorrent in docker with nginx for interface.
+Rtorrent in docker with RPC2 interface and webservice.
 
-rTorrent can download torrent and nginx is an interface for get state aboute torrents.
+## Volumes
 
-rTorrent can give you informations with XMLRPC protocol.
-
-Many librairies implement XMLRPC as client.
+- `/var/rtorrent/torrents` : directory of torrent files
+- `/var/rtorrent/downloaded` : directory of torrent downloaded
+- `/var/rtorrent/logs` : logs
 
 #### Feature
 
+- Watch directory : place torrent file in `/var/rtorrent/torrents` and rTorrent download it automatically
 - Get downloaded file with `http://host/downloaded/[mydownloadedFile]`
 - Get content of torrent file with `http://host/torrents/[torrentName]`
 - Get data with XML RPC `http://host/RPC2`

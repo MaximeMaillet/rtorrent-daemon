@@ -96,25 +96,26 @@ const transcodeQueue = async(queue) => {
 
 if(process.argv) {
   if(process.argv[2] === 'all') {
-    console.log('-- TRANSCODE ALL --')
+    console.log('-- TRANSCODE ALL :: START --');
     queuedForAll()
       .then((queue) => {
         return transcodeQueue(queue);
       })
       .then(() => {
-        console.log('Transcode all done !');
+        console.log('-- TRANSCODE ALL :: END --');
       })
       .catch((e) => {
         console.log(`Transcode all fail : ${e.message}`);
         console.log(e);
       })
   } else if(process.argv[2] === 'one') {
+    console.log(`-- TRANSCODE ONE ${process.argv[3]} :: START --`);
     queuedForOne(process.argv[3])
       .then((queue) => {
         return transcodeQueue(queue);
       })
       .then(() => {
-        console.log('Transcode one done !');
+        console.log(`-- TRANSCODE ONE ${process.argv[3]} :: END --`);
       })
       .catch((e) => {
         console.log(`Transcode one fail : ${e.message}`);
