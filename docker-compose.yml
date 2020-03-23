@@ -1,12 +1,32 @@
 version: '3.1'
 
+networks:
+  seedbox:
+    external:
+      name: seedbox
+
+  monitoring:
+    external:
+      name: monitoring
+
 services:
-  rtorrent:
+  seedbox-rtorrent:
+    container_name: seedbox-rtorrent
+    restart: always
     image: ${IMAGE_RTORRENT}
     env_file: .env
-    ports:
-      - 8099:80
     volumes:
       - ${STORAGE_PATH}/dtorrent/downloaded:/var/rtorrent/downloaded
       - ${STORAGE_PATH}/dtorrent/torrent:/var/rtorrent/torrents
       - ${STORAGE_PATH}/dtorrent/logs:/var/rtorrent/logs
+    networks:
+      - seedbox
+
+  seedbox-rtorrent_exporter:
+    image: ${IMAGE_RTORRENT_EXPORTER}
+    restart: always
+    container_name: seedbox-rtorrent_exporter
+    command: ["-rtorrent.addr", "http://seedbox-rtorrent/RPC2"]
+    networks:
+      - seedbox
+      - monitoring

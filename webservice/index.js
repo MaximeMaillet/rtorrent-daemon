@@ -26,8 +26,8 @@ router.route([
         ],
         post: 'UploadController#upload'
       },
-      '/downloaded': {
-        get: 'DownloadController#getDownloaded'
+      '/download': {
+        get: 'DownloadController#download'
       },
       '/torrent': {
         get: 'DownloadController#getTorrent'

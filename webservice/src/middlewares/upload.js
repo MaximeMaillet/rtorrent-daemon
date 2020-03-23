@@ -5,5 +5,5 @@ const upload = multer({
 });
 
 module.exports.torrent = upload.fields([
-  {name: 'torrents'},
+  { name: 'torrents', maxCount: 5},
 ]);

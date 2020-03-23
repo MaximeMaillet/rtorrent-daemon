@@ -5,8 +5,14 @@ networks:
     external:
       name: seedbox
 
+  monitoring:
+    external:
+      name: monitoring
+
 services:
-  rtorrent:
+  seedbox-rtorrent:
+    restart: always
+    container_name: seedbox-rtorrent
     build: .
     env_file: .env
     volumes:
@@ -16,3 +22,12 @@ services:
       - ./webservice:/var/app
     networks:
       - seedbox
+
+  seedbox-rtorrent_exporter:
+    image: ${IMAGE_RTORRENT_EXPORTER}
+    restart: always
+    container_name: seedbox-rtorrent_exporter
+    command: ["-rtorrent.addr", "http://seedbox-rtorrent/RPC2"]
+    networks:
+      - seedbox
+      - monitoring

@@ -1,3 +1,4 @@
+const fs = require('fs');
 const torrentsPath = '/var/rtorrent/torrents';
 
 module.exports.upload = async(req, res, next) => {

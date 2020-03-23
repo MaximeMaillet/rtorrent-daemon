@@ -6,9 +6,6 @@
   "scripts": {
     "start": "node index.js",
     "start-dev": "./node_modules/.bin/nodemon index.js",
-    "transcode-one": "node ./cli/transcode.js one",
-    "transcode-all": "node ./cli/transcode.js all",
-    "parse": "node ./cli/parse.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
