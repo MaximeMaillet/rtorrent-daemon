@@ -1,61 +1,73 @@
 # Docker rTorrent
 
-Rtorrent in docker with RPC2 interface.
-
-[deuxmax/rtorrent](https://hub.docker.com/r/deuxmax/rtorrent)
+Rtorrent in docker with RPC2 interface and web services.
 
 ## Features
 
-- Watch directory : place torrent file in `/var/rtorrent/torrents` and rTorrent download it automatically
-- Download downloaded file with `http://host/download?file=myDownloadedFile`
-- Download content of torrent file with `http://host/torrent?file=myTorrentFile`
-- Upload torrent file `POST http://host/upload`
-- Get data with XML RPC `http://host/RPC2`
-- Webhook emit when download is finished with base path file in `file` parameter.
-(*Can be a name of directory or name of file*)
-
-## Usage
-
-#### Build & Run
-
-##### Build
+- Download downloaded file
 
 ```bash
-docker build -t namespace/container:latest .
+curl -X GET http://localhost:8080/download?file=myDownloadedFile
 ```
 
-##### Run
+
+- Download torrent file
 
 ```bash
-docker run -d
-  -p 8080:80
-  -v "/home/my/data/files:/var/rtorrent/downloaded"
-  -v "/home/my/data/torrent:/var/rtorrent/torrents"
-  -v "/home/my/data/logs:/var/rtorrent/logs"
-  namespace/container:latest
+curl -X GET http://localhost:8080/torrent?file=myDownloadedFile
 ```
 
-##### Docker compose
+
+- Upload torrent file
+
+
+```bash
+curl -X POST --F "torrents=@/tmp/file.torrent;type=application/x-bittorrent" http://localhost:8080/upload
+```
+
+
+- Watch directory
+ 
+ Put torrent file in `/var/rtorrent/torrents` and rTorrent download it automatically
+ 
+
+- XMLRP protocol
+
+You can get data with XML RPC `http://host:8080/RPC2`
+
+
+- Webhook 
+
+Web hook emit when download is finished with file name in `file` parameter.
+
+*`file` can be a name of directory or name of file*
+
+## Install
+
+```bash
+git clone https://github.com/MaximeMaillet/rtorrent-docker
+docker-compose -f docker-compose.dev.yml up -d
+```
+
+## Example
 
 ```yaml
-version: '3'
+version: '3.1'
 services:
   rtorrent:
-    image: namespace/container:latest
     restart: always
+    image: deuxmax/rtorrent:latest
     ports:
       - 8080:80
+    environment:
+      CORS_DOMAIN: http://localhost:3000
+      WEBHOOK_URLS: http://localhost:5000,http://localhost:5001
     volumes:
-      - /home/my/data/files:/var/rtorrent/downloaded
-      - /home/my/data/torrent:/var/rtorrent/torrents
-      - /home/my/data/logs:/var/rtorrent/logs
+      - ${STORAGE_PATH}/dtorrent/downloaded:/var/rtorrent/downloaded
+      - ${STORAGE_PATH}/dtorrent/torrent:/var/rtorrent/torrents
+      - ${STORAGE_PATH}/dtorrent/session:/var/rtorrent/session
+      - ${STORAGE_PATH}/dtorrent/logs:/var/rtorrent/logs
 ```
-
-Now you can put your .torrent file into `/home/my/data/torrent` and it's done (load) !
-
-#### Upload
-
-Send `POST` http request to `/upload` with `torrents={FILE}` as parameter.
 
 ## File system
 

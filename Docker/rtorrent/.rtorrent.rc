@@ -33,7 +33,7 @@ dht_port = 6880
 # ID of seeder and leecher are visible
 encryption = allow_incoming,require,require_rc4
 
-log.open_file = "rtorrent.log", (cat,/var/rtorrent/logs/rtorrent.log,(system.pid))
+#log.open_file = "rtorrent.log", (cat,/var/rtorrent/logs/rtorrent.log,(system.pid))
 
 # Port SCGI for XMLRPC
 scgi_port = localhost:5000
