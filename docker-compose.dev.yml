@@ -14,10 +14,13 @@ services:
     restart: always
     container_name: seedbox-rtorrent
     build: .
+    ports:
+      - 8080:80
     env_file: .env
     volumes:
       - ${STORAGE_PATH}/dtorrent/downloaded:/var/rtorrent/downloaded
       - ${STORAGE_PATH}/dtorrent/torrent:/var/rtorrent/torrents
+      - ${STORAGE_PATH}/dtorrent/session:/var/rtorrent/session
       - ${STORAGE_PATH}/dtorrent/logs:/var/rtorrent/logs
       - ./webservice:/var/app
     networks:

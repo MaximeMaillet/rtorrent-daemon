@@ -18,6 +18,7 @@ services:
     volumes:
       - ${STORAGE_PATH}/dtorrent/downloaded:/var/rtorrent/downloaded
       - ${STORAGE_PATH}/dtorrent/torrent:/var/rtorrent/torrents
+      - ${STORAGE_PATH}/dtorrent/session:/var/rtorrent/session
       - ${STORAGE_PATH}/dtorrent/logs:/var/rtorrent/logs
     networks:
       - seedbox

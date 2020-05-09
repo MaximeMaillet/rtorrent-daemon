@@ -1,5 +1,5 @@
 # Configuration file of rtorrent >= 0.9.7
-#system.daemon.set = true
+system.daemon.set = true
 
 # "0" = no limit
 #download_rate = 500
@@ -23,7 +23,7 @@ check_hash = yes
 schedule = watch_directory,15,15,load.start=/var/rtorrent/torrents/*.torrent
 
 # Event firing with hash as parameters
-method.set_key = event.download.finished,transcode,"execute=/home/torrent/rtorrent/events/transcode.sh,$d.base_path="
+method.set_key = event.download.finished,end,"execute=/home/torrent/rtorrent/events/finished.sh,$d.base_path="
 
 # Enable DHT for torrents without trackers
 dht = auto
